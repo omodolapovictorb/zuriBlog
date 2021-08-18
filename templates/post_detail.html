@@ -1,0 +1,25 @@
+<!-- templates/post_detail.html -->
+{% extends 'base.html' %}
+{% block content %}
+    <div class="post-entry">
+        <h2>{{ post.title }}</h2>
+        <h4>by {{ post.author }}</h4>
+        <p>{{ post.body }}</p>
+    </div>
+    <div class="card-footer">
+        <h3>Comment(s)</h3>
+        {% for comment in post.comments.all %}
+        <p>
+            <span class="font-weight-bold">
+                {{ comment.user }}:
+            </span>
+            {{ comment }}
+        </p>
+        {% endfor %}
+    </div>
+    <!---<p>written/modified by {{ post.author }}</p>--->
+    <p><a href="{% url 'comment' post.pk %}">Add Comment</a> |
+    <a href="{% url 'post_edit' post.pk %}">Edit Post</a> |
+    <a href="{% url 'post_delete' post.pk %}">Delete Post</a></p>
+
+{% endblock content %}

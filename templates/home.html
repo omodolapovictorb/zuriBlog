@@ -1,0 +1,26 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for post in object_list %}
+        <div class="post-entry">
+            <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a> <em>by {{ post.author }}</em></h2>
+            <!---<h3>by {{ post.author }} at {{ post.date }}</h3>--->
+            <p>{{ post.body }}</p>
+            <!---<h4>by {{ post.author }}</h4>--->
+            <div class="card-footer">
+                <h3>Comment(s)</h3>
+                {% for comment in post.comments.all %}
+                <p>
+                    <span class="font-weight-bold">
+                        {{ comment.user }}:
+                    </span>
+                    {{ comment }}
+                </p>
+                {% endfor %}
+            </div>
+            <p><a href="{% url 'comment' post.pk %}">Comment</a></p>
+        </div>
+
+    {% endfor %}
+{% endblock content %}
